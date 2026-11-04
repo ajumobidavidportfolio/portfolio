@@ -145,7 +145,7 @@ h1,h2,p{margin:0}
 @media (min-width:48rem){.contact{align-content:stretch;padding-top:18svh;grid-template-rows:1fr auto}.contact .top{grid-column:span 8}}
 .contact h2{font-family:var(--fd);font-size:clamp(3rem,8vw,8.5rem);line-height:.9;font-weight:600;letter-spacing:-.045em}
 .contact .sub{font-family:var(--fd);color:rgba(251,251,248,.6);margin-top:1rem;font-size:clamp(1.25rem,2vw,2rem);letter-spacing:-.02em}
-.mail{all:unset;cursor:pointer;display:inline-block;margin-top:1.25rem;font-family:var(--fd);font-size:clamp(1.75rem,3.6vw,3.5rem);font-weight:300;letter-spacing:-.03em;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:.18em;text-decoration-color:rgba(251,251,248,.4)}
+.mail{all:unset;cursor:pointer;display:inline-block;margin-top:1.25rem;font-family:var(--fd);font-size:min(clamp(1.75rem,3.6vw,3.5rem),calc((100vw - 2*var(--margin))/15));font-weight:300;letter-spacing:-.03em;text-decoration:underline;max-width:100%;overflow-wrap:anywhere;text-decoration-thickness:1px;text-underline-offset:.18em;text-decoration-color:rgba(251,251,248,.4)}
 .mail:hover{text-decoration-color:var(--paper)}
 .bottom{grid-column:1 / -1;display:grid;grid-template-columns:subgrid;row-gap:1rem;margin-top:2.5rem}
 @media (min-width:48rem){.contact .sub{margin-top:1.5rem}.mail{margin-top:2rem}.bottom{row-gap:1.5rem}}
@@ -647,7 +647,7 @@ function createMascot(canvas, opts){
     const h = headScreen(), r = place.r*1.15; handle.style.transform = `translate(${h.x - r}px, ${h.y - r}px)`; handle.style.width = handle.style.height = (2*r) + 'px';
     opts.onFrame?.(h, place.r); }
   pose('wave'); frame();
-  return { pose, wear, face, set, headScreen, mirror };
+  return { pose, wear, face, set, headScreen, mirror, render: () => { try { step(); } catch (err) { report(err); } } };
 }
 
 const $ = s => document.querySelector(s), $$ = s => [...document.querySelectorAll(s)];
@@ -763,6 +763,7 @@ function update(){
   say(line);
 }
 let lenis = null; try { lenis = new Lenis({lerp:.1, smoothWheel:true}); const raf = t => { lenis.raf(t); requestAnimationFrame(raf); }; requestAnimationFrame(raf); } catch (e) {}
+if (lenis) lenis.on('scroll', () => { update(); bot?.render(); });
 // every page opens at the top; a link with #section opens at that section
 try { history.scrollRestoration = 'manual'; } catch (e) {}
 function landing(){ const id = decodeURIComponent(location.hash.slice(1)); const el = id && document.getElementById(id);

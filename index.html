@@ -471,7 +471,7 @@ function createMascot(canvas, opts){
     const h = headScreen(), r = place.r*1.15; handle.style.transform = `translate(${h.x - r}px, ${h.y - r}px)`; handle.style.width = handle.style.height = (2*r) + 'px';
     opts.onFrame?.(h, place.r); }
   pose('wave'); frame();
-  return { pose, wear, face, set, headScreen, mirror };
+  return { pose, wear, face, set, headScreen, mirror, render: () => { try { step(); } catch (err) { report(err); } } };
 }
 
 const $ = s => document.querySelector(s), $$ = s => [...document.querySelectorAll(s)];
@@ -595,11 +595,12 @@ function drawDither(c, dev){ if (Math.abs(dev - c._dev) < .02 && !(dev === 0 && 
     const ink = (1 - c._lum[p]) * dev > th; const o = p*4; const v = ink ? 11 : 251; out.data[o] = v; out.data[o+1] = v; out.data[o+2] = ink ? 12 : 248; out.data[o+3] = 255; }
   x.putImageData(out, 0, 0); }
 
-// bubbles wobble with scroll speed
-const skew = {v:0}; let lastY = scrollY, lastT = performance.now();
-function trackSkew(){ const now = performance.now(), dy = scrollY - lastY, dt = Math.max(16, now - lastT); lastY = scrollY; lastT = now;
-  const target = Math.max(-7, Math.min(7, -(dy/dt*1000)/350));
-  if (Math.abs(target) > Math.abs(skew.v)) { skew.v = target; gsap.to(skew, {v:0, duration:1, ease:'elastic.out(1, .35)', overwrite:true, onUpdate:() => $$('.tb').forEach(b => b.style.transform = `skewY(${skew.v}deg)`)}); } }
+// bubbles lean a little with scroll speed: eased toward the speed every frame, so it never jitters
+const skew = {v:0, last:0}; let skewY = scrollY;
+function skewTick(){ const v = scrollY - skewY; skewY = scrollY; // how far the page really moved this frame (already eased by the smooth scroll)
+  const target = Math.max(-5, Math.min(5, -v*.3)); skew.v += (target - skew.v)*.12;
+  if (Math.abs(skew.v) < .02 && Math.abs(target) < .02) skew.v = 0;
+  if (skew.v !== skew.last) { skew.last = skew.v; const tf = skew.v ? `skewY(${skew.v.toFixed(2)}deg)` : ''; $$('.tb').forEach(b => b.style.transform = tf); } }
 
 function update(){
   const vh = innerHeight;
@@ -636,7 +637,9 @@ function update(){
   if (near.classList.contains('chapter')) { bot.wear(near.dataset.outfit); bot.pose(lineGesture || 'rest'); say(''); }
   else { bot.wear(null); bot.pose(near.dataset.pose || 'rest'); say(near.dataset.say || ''); }
 }
-let lenis = null; try { lenis = new Lenis({lerp:.1, smoothWheel:true}); const raf = t => { lenis.raf(t); requestAnimationFrame(raf); }; requestAnimationFrame(raf); } catch (e) {}
+let lenis = null; try { lenis = new Lenis({lerp:.1, smoothWheel:true}); const raf = t => { lenis.raf(t); skewTick(); requestAnimationFrame(raf); }; requestAnimationFrame(raf); } catch (e) { lenis = null; const tick = () => { skewTick(); requestAnimationFrame(tick); }; requestAnimationFrame(tick); }
+// smooth scroll moves the page inside this frame: update him and redraw him in the same frame, so nothing lags behind
+if (lenis) lenis.on('scroll', () => { update(); bot?.render(); });
 // every page opens at the top; a link with #section opens at that section
 try { history.scrollRestoration = 'manual'; } catch (e) {}
 function landing(){ const id = decodeURIComponent(location.hash.slice(1)); const el = id && document.getElementById(id);
@@ -644,7 +647,7 @@ function landing(){ const id = decodeURIComponent(location.hash.slice(1)); const
   if (lenis) lenis.scrollTo(y, {immediate:true, force:true}); scrollTo(0, y); }
 landing(); addEventListener('load', landing); addEventListener('pageshow', e => { if (e.persisted) landing(); });
 
-addEventListener('scroll', () => requestAnimationFrame(() => { update(); trackSkew(); }), {passive:true});
+addEventListener('scroll', () => requestAnimationFrame(update), {passive:true});
 $('.hero .button').addEventListener('click', e => { e.preventDefault(); lenis ? lenis.scrollTo('#contact') : $('#contact').scrollIntoView({behavior:'smooth'}); });
 // hint after a while in the hero
 setTimeout(() => { if (!grabbed && scrollY < innerHeight*.3) { said = null; say('Psst. You can <k>grab</k> me.'); } }, 6500);
