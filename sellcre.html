@@ -613,7 +613,9 @@ function createMascot(canvas, opts){
     depthTest:false, depthWrite:false });
   const pScene = new THREE.Scene(); pScene.add(new THREE.Mesh(new THREE.PlaneGeometry(2,2), post));
   const pCam = new THREE.OrthographicCamera(-1,1,1,-1,0,1);
-  function size(){ const vw = document.documentElement.clientWidth, vh = innerHeight; const w = Math.ceil(vw/PX), h = Math.ceil(vh/PX); if (w === W && h === H) return; W = w; H = h;
+  // phones: the browser bar slides away while scrolling and the screen grows, so the canvas always covers the tallest the screen can get
+  const tall = document.createElement('div'); tall.style.cssText = 'position:fixed;left:0;top:0;width:0;height:100vh;height:100lvh;visibility:hidden;pointer-events:none'; document.body.append(tall);
+  function size(){ const vw = document.documentElement.clientWidth, vh = Math.max(innerHeight, tall.offsetHeight, visualViewport?.height || 0); const w = Math.ceil(vw/PX), h = Math.ceil(vh/PX); if (w === W && h === H) return; W = w; H = h;
     renderer.setPixelRatio(1); renderer.setSize(w, h, false); canvas.style.width = w*PX + 'px'; canvas.style.height = h*PX + 'px';
     rt?.dispose(); rt = new THREE.WebGLRenderTarget(w, h, {samples:4});
     camera.left = 0; camera.right = w*PX; camera.top = 0; camera.bottom = -h*PX; camera.updateProjectionMatrix(); }
@@ -635,7 +637,7 @@ function createMascot(canvas, opts){
   const clock = new THREE.Clock();
   function frame(){ requestAnimationFrame(frame); try { step(); } catch (err) { report(err); } }
   let reported = false; function report(err){ if (!reported) { reported = true; console.error(err); } }
-  function step(){ const t = clock.getElapsedTime();
+  function step(){ size(); const t = clock.getElapsedTime();
     if (!Number.isFinite(eye.x) || !Number.isFinite(eye.y)) { eye.x = 0; eye.y = 0; } if (!Number.isFinite(look.x) || !Number.isFinite(look.y)) { look.x = 0; look.y = 0; }
     const gx = Number.isFinite(place.gx) ? place.gx : look.x, gy = Number.isFinite(place.gy) ? place.gy : look.y; const tx = Math.max(-.7, Math.min(.7, gx + look.x*.12)), ty = Math.max(-.6, Math.min(.6, gy + look.y*.1));
     eye.x += (tx - eye.x)*.06; eye.y += (ty - eye.y)*.06;
