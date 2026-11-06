@@ -451,8 +451,8 @@ h3{margin:0}
 .gdd-btn svg{transition:rotate .25s}
 .gdd-btn[aria-expanded=true] svg{rotate:180deg}
 .gdd-list{position:absolute;z-index:20;right:0;top:calc(100% + .625rem);min-width:min(19rem,calc(100vw - 2*var(--margin)));max-height:min(60svh,32rem);overflow:auto;margin:0;padding:.375rem;list-style:none;background:var(--paper);border:1px solid color-mix(in srgb,var(--ink) 12%,transparent);border-radius:16px;box-shadow:0 18px 40px -18px rgba(11,11,12,.35)}
-.cnav .c{position:absolute;left:50%;top:4.25rem;translate:-50% 0;pointer-events:auto}@media (min-width:48rem){.cnav .c{top:1.5rem}}
-.cnav .c .gdd-list{left:50%;right:auto;translate:-50% 0;min-width:min(19rem,calc(100vw - 2*var(--margin)))}
+.gfx-bar{position:sticky;z-index:36;top:4.25rem;display:flex;justify-content:center;margin-bottom:clamp(1.5rem,3vw,2.25rem);pointer-events:none}.gfx-bar .gdd{pointer-events:auto}@media (min-width:48rem){.gfx-bar{top:1.5rem}}
+.gfx-bar .gdd-list{left:50%;right:auto;translate:-50% 0;min-width:min(19rem,calc(100vw - 2*var(--margin)))}
 .gchip{display:flex;width:100%;justify-content:space-between;align-items:baseline;gap:1rem;padding:.625rem .75rem;border:0;border-radius:10px;background:none;color:var(--ink);font:500 .9375rem/1.2 var(--fs);letter-spacing:-.01em;cursor:pointer;text-align:left}
 .gchip em{font-style:normal;font-size:.8125rem;opacity:.5}
 .gchip:hover,.gchip:focus-visible{background:var(--stone);outline:none}
@@ -486,7 +486,6 @@ h3{margin:0}
 <nav class="cnav grid-page">
   <div class="l"><a class="button" href="/#work"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M14 8H2M7 3 2 8l5 5"/></svg> All work</a></div>
   <div class="r"><a class="button" href="/#contact"><span class="lg">Work with me</span><span class="sm">Contact</span> <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 12 12 4m0 0H5m7 0v7"/></svg></a></div>
-  <div class="c"><div class="gdd"><button class="button gdd-btn" id="gfxDD" aria-haspopup="listbox" aria-expanded="false" aria-controls="gfxFilters"><span id="gfxDDv">All niches</span><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="m4 6 4 4 4-4"/></svg></button><ul class="gdd-list" id="gfxFilters" role="listbox" aria-label="Choose a niche" data-lenis-prevent hidden></ul></div></div>
 </nav>
 
 <main>
@@ -497,7 +496,7 @@ h3{margin:0}
 </section>
 <section class="case-text grid-page" data-anchor="badge" data-pose="rest"><p class="case-reveal">Alongside product work, I design brand and marketing graphics: social media kits, campaign visuals and promotional designs built to stay on-brand at scale.</p><div class="case-copy"><p>I help brands show up consistently, week after week. My work spans more than 1,600 designs across 16 niches, from retail and business promotions to events, faith, education and seasonal campaigns.</p><p>I design with real use in mind: clear hierarchy, strong type and layouts that stay polished when they’re adapted.</p></div></section>
 <section class="gfx bg-stone" id="gallery" data-anchor="badge" data-pose="rest">
-  <p class="gfx-count" id="gfxCount" hidden></p>
+  <div class="gfx-bar"><div class="gdd"><button class="button gdd-btn" id="gfxDD" aria-haspopup="listbox" aria-expanded="false" aria-controls="gfxFilters"><span id="gfxDDv">All niches</span><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="m4 6 4 4 4-4"/></svg></button><ul class="gdd-list" id="gfxFilters" role="listbox" aria-label="Choose a niche" data-lenis-prevent hidden></ul></div></div><p class="gfx-count" id="gfxCount" hidden></p>
   <div class="grid-page gfx-body"><div class="gfx-grid" id="gfxGrid"></div></div>
   <div class="grid-page"><p class="gfx-more">A selection from 1,600+ templates. Refresh to see a different mix.</p></div>
 </section>
