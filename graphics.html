@@ -519,7 +519,7 @@ function render(){
   const pool=cur==='All'?sh(cats.flatMap(c=>sh(D.filter(d=>d.c===c)).slice(0,PER))):sh(D.filter(d=>d.c===cur)).slice(0,PER);
   view=pool;
   $('gfxGrid').innerHTML=pool.map((d,i)=>`<button class="gtile" data-i="${i}" aria-label="Open ${d.c} design"><img src="img/gfx/${d.n}-t.webp" width="${d.w}" height="${d.h}" loading="lazy" decoding="async" alt="${d.c} template"><span class="gcap">${d.c}</span></button>`).join('');
-  $('gfxCount').textContent=`Showing ${pool.length} ${cur==='All'?'designs across '+cats.length+' categories':cur+' designs'}`;
+  $('gfxCount').textContent=`Showing ${pool.length} ${cur==='All'?'designs across '+cats.length+' niches':cur+' designs'}`;
 }
 $('gfxFilters').addEventListener('click',e=>{const b=e.target.closest('.gchip');if(!b)return;cur=b.dataset.c;chips();render();});
 const lb=$('gfxLb'); let k=0;
