@@ -56,6 +56,7 @@ h1,h2,p{margin:0}
 .hero{position:relative;height:100svh;background:var(--blue);color:var(--paper);grid-template-rows:auto 1fr;padding-top:1.25rem;padding-bottom:var(--margin)}
 .hero .name{grid-column:span 2;font-family:var(--fd);font-size:clamp(1.125rem,2.2vw,2.25rem);line-height:1.05;letter-spacing:-.03em;white-space:nowrap;align-self:center}
 .hero .name b{display:block;font-weight:600}.hero .name span.l{display:block;font-weight:300}
+@media (max-width:47.99rem){.hero .name{white-space:normal}.hero .name span.l{max-width:9.5em}}
 .hero .cta{grid-column:span 2;display:flex;justify-content:flex-end;align-items:center}
 .hero h1{grid-column:span 4;align-self:start;padding-top:7svh;font-family:var(--fd);font-size:clamp(3.25rem,9.5vw,10.5rem);line-height:.9;font-weight:600;letter-spacing:-.045em}
 .hero h1 .l{font-weight:300}
@@ -206,13 +207,13 @@ h1,h2,p{margin:0}
 
 <main>
 <section class="hero grid-page" data-anchor="hero" data-pose="wave" data-say="Hi, I'm <k>David</k>. Scroll down and I'll show you around.">
-  <p class="name"><b>David Ajumobi</b><span class="l">Product designer</span></p>
+  <p class="name"><b>David Ajumobi</b><span class="l">Product &amp; graphic designer</span></p>
   <div class="cta"><a class="button" href="#contact">Get in touch <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M8 2v12M3 9l5 5 5-5"/></svg></a></div>
   <h1 aria-label="I design products and ship them."><span class="mask"><span>I</span></span> <span class="mask"><span>design</span></span> <span class="mask"><span>products</span></span> <span class="mask"><span>and</span></span> <span class="mask"><span>ship</span></span> <span class="mask l"><span>them.</span></span></h1>
 </section>
 
 <section class="about" data-anchor="left" data-pose="think">
-  <div class="in grid-page"><p id="about">I'm a product designer based in Lagos, working with teams across North America and Europe. For almost nine years I've designed products and websites, and today I take them end to end, from first sketch to a <span class="acc">live product</span>, designed and built by me.</p></div>
+  <div class="in grid-page"><p id="about">I'm a product designer based in Lagos, working with teams across North America and Europe. For almost nine years I've designed products and websites, and today I take them end to end, from first sketch to a <span class="acc">live product</span>, designed and built by me. Alongside that, I design brand and marketing graphics: more than 1,600 across 16 industries.</p></div>
 </section>
 
 <div class="tour">
