@@ -441,23 +441,24 @@ h3{margin:0}
 .gfx-head{align-items:end;row-gap:.5rem;margin-bottom:1.5rem}
 .gfx-head h2{grid-column:1/-1;font-family:var(--fd);font-size:clamp(2rem,4.4vw,4.25rem);line-height:.95;font-weight:600;letter-spacing:-.04em}
 .gfx-count{grid-column:1/-1;font-size:.9375rem;opacity:.6}
-@media (min-width:48rem){.gfx-head h2{grid-column:1/span 8}.gfx-count{grid-column:9/span 4;text-align:right}}
-.gfx-body{row-gap:1.5rem;align-items:start}
-.gfx-filters{grid-column:1/-1;display:flex;gap:1.25rem;overflow-x:auto;margin:0 calc(-1*var(--margin));padding:0 var(--margin) .75rem;border-bottom:1px solid color-mix(in srgb,var(--ink) 12%,transparent);scrollbar-width:none;-webkit-mask:linear-gradient(90deg,transparent,#000 var(--margin),#000 calc(100% - 3rem),transparent)}
-.gfx-filters::-webkit-scrollbar{display:none}
-.gchip{flex:none;display:inline-flex;align-items:flex-start;gap:.25rem;padding:.25rem 0;border:0;background:none;color:color-mix(in srgb,var(--ink) 45%,transparent);font:500 1rem/1.2 var(--fs);letter-spacing:-.01em;cursor:pointer;white-space:nowrap;transition:color .2s}
-.gchip sup{font-size:.6875rem;line-height:1;opacity:.8;margin-top:.1rem}
-.gchip:hover{color:var(--ink)}
-.gchip[aria-pressed=true]{color:var(--ink)}
-@media (min-width:48rem){
- .gfx-filters{grid-column:1/span 3;position:sticky;top:5.5rem;flex-direction:column;gap:.125rem;overflow:visible;margin:0;padding:0;border:0;-webkit-mask:none}
- .gchip{position:relative;padding:.2rem 0 .2rem 1.125rem;font-size:1rem}
- .gchip::before{content:"";position:absolute;left:0;top:50%;width:.5rem;height:.5rem;margin-top:-.25rem;border-radius:50%;background:var(--blue);scale:0;transition:scale .25s cubic-bezier(.34,1.56,.64,1)}
- .gchip[aria-pressed=true]::before{scale:1}
- .gfx-body .gfx-grid{grid-column:4/-1}
-}
+@media (min-width:48rem){.gfx-head h2{grid-column:1/span 7}}
+.gfx-body{align-items:start}
+.gfx-pick{grid-column:1/-1;display:flex;align-items:center;flex-wrap:wrap;gap:.5rem .75rem}
+.gfx-pick .lbl{font-size:.9375rem;opacity:.6}
+.gfx-pick .gfx-count{flex-basis:100%;font-size:.8125rem;opacity:.5}
+@media (min-width:48rem){.gfx-pick{grid-column:8/span 5;justify-content:flex-end}.gfx-pick .gfx-count{text-align:right}}
+.gdd{position:relative}
+.gdd-btn svg{transition:rotate .25s}
+.gdd-btn[aria-expanded=true] svg{rotate:180deg}
+.gdd-list{position:absolute;z-index:20;right:0;top:calc(100% + .625rem);min-width:min(19rem,calc(100vw - 2*var(--margin)));max-height:min(60svh,32rem);overflow:auto;margin:0;padding:.375rem;list-style:none;background:var(--paper);border:1px solid color-mix(in srgb,var(--ink) 12%,transparent);border-radius:16px;box-shadow:0 18px 40px -18px rgba(11,11,12,.35)}
+.gfx-pick{position:relative}@media (max-width:47.99rem){.gdd{position:static}.gdd-list{left:0;right:0;min-width:0;top:3.25rem}}
+.gchip{display:flex;width:100%;justify-content:space-between;align-items:baseline;gap:1rem;padding:.625rem .75rem;border:0;border-radius:10px;background:none;color:var(--ink);font:500 .9375rem/1.2 var(--fs);letter-spacing:-.01em;cursor:pointer;text-align:left}
+.gchip em{font-style:normal;font-size:.8125rem;opacity:.5}
+.gchip:hover,.gchip:focus-visible{background:var(--stone);outline:none}
+.gchip[aria-selected=true]{background:var(--ink);color:var(--paper)}
+.gchip[aria-selected=true] em{opacity:.7}
 .gfx-grid{grid-column:1/-1;columns:2;column-gap:var(--gutter)}
-@media (min-width:48rem){.gfx-grid{columns:2}}@media (min-width:64rem){.gfx-grid{columns:3}}
+@media (min-width:48rem){.gfx-grid{columns:3}}@media (min-width:75rem){.gfx-grid{columns:4}}
 .gtile{position:relative;display:block;width:100%;margin:0 0 var(--gutter);padding:0;border:0;background:#e4e4dd;cursor:zoom-in;break-inside:avoid;overflow:hidden;border-radius:4px;isolation:isolate}
 .gtile img{display:block;width:100%;height:auto;transition:transform .5s cubic-bezier(.2,.7,.2,1)}
 .gtile .gcap{position:absolute;left:.625rem;bottom:.625rem;padding:.375rem .625rem;border-radius:999px;background:var(--paper);color:var(--ink);font:500 .75rem/1 var(--fs);opacity:0;translate:0 6px;transition:opacity .25s,translate .25s}
@@ -494,8 +495,8 @@ h3{margin:0}
 </section>
 <section class="case-text grid-page" data-anchor="badge" data-pose="rest"><p class="case-reveal">Alongside product work, I design brand and marketing graphics: social media kits, campaign visuals and promotional designs built to stay on-brand at scale.</p><div class="case-copy"><p>I help brands show up consistently, week after week. My work spans more than 1,600 designs across 16 niches, from retail and business promotions to events, faith, education and seasonal campaigns.</p><p>I design with real use in mind: clear hierarchy, strong type and layouts that stay polished when they’re adapted.</p></div></section>
 <section class="gfx bg-stone" id="gallery" data-anchor="badge" data-pose="rest">
-  <div class="grid-page gfx-head"><h2>Browse the work</h2><p class="gfx-count" id="gfxCount"></p></div>
-  <div class="grid-page gfx-body"><nav class="gfx-filters" id="gfxFilters" aria-label="Filter by category"></nav><div class="gfx-grid" id="gfxGrid"></div></div>
+  <div class="grid-page gfx-head"><h2>Browse the work</h2><div class="gfx-pick"><span class="lbl">Showing:</span><div class="gdd"><button class="button gdd-btn" id="gfxDD" aria-haspopup="listbox" aria-expanded="false" aria-controls="gfxFilters"><span id="gfxDDv">All work</span><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="m4 6 4 4 4-4"/></svg></button><ul class="gdd-list" id="gfxFilters" role="listbox" aria-label="Choose a niche" data-lenis-prevent hidden></ul></div><p class="gfx-count" id="gfxCount"></p></div></div>
+  <div class="grid-page gfx-body"><div class="gfx-grid" id="gfxGrid"></div></div>
   <div class="grid-page"><p class="gfx-more">A selection from 1,600+ templates. Refresh to see a different mix.</p></div>
 </section>
 <section class="case-stats grid-page" data-anchor="badge" data-pose="cheer"><h2 class="case-reveal">Designed for real people, every week.</h2><div class="stats"><div class="stat"><b>1,600+</b><span>templates designed</span></div><div class="stat"><b>16</b><span>categories</span></div><div class="stat"><b>536</b><span>church designs</span></div><div class="stat"><b>32,500+</b><span>designs made on Efata</span></div></div></section>
@@ -514,14 +515,19 @@ const sh=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.r
 const cats=[...new Set(D.map(d=>d.c))];
 let cur='All', view=[];
 const order=[...cats].sort((a,b)=>T[b]-T[a]);
-function chips(){ $('gfxFilters').innerHTML=['All',...order].map(c=>`<button class="gchip" aria-pressed="${c===cur}" data-c="${c}"><span>${c==='All'?'All work':c}</span><sup>${(c==='All'?ALL:T[c]).toLocaleString()}</sup></button>`).join(''); }
+function chips(){ $('gfxFilters').innerHTML=['All',...order].map(c=>`<li><button class="gchip" role="option" aria-selected="${c===cur}" data-c="${c}"><span>${c==='All'?'All work':c}</span><em>${(c==='All'?ALL:T[c]).toLocaleString()}</em></button></li>`).join(''); $('gfxDDv').textContent=cur==='All'?'All work':cur; }
+const dd=$('gfxDD'),ddl=$('gfxFilters');
+function ddOpen(o){ddl.hidden=!o;dd.setAttribute('aria-expanded',o);if(o)ddl.querySelector('[aria-selected=true]')?.focus();}
+dd.addEventListener('click',e=>{e.stopPropagation();ddOpen(ddl.hidden);});
+document.addEventListener('click',e=>{if(!e.target.closest('.gdd'))ddOpen(false);});
+ddl.addEventListener('keydown',e=>{const b=[...ddl.querySelectorAll('.gchip')],i=b.indexOf(document.activeElement);if(e.key==='Escape'){ddOpen(false);dd.focus();}if(e.key==='ArrowDown'){e.preventDefault();b[Math.min(b.length-1,i+1)].focus();}if(e.key==='ArrowUp'){e.preventDefault();b[Math.max(0,i-1)].focus();}});
 function render(){
   const pool=cur==='All'?sh(cats.flatMap(c=>sh(D.filter(d=>d.c===c)).slice(0,PER))):sh(D.filter(d=>d.c===cur)).slice(0,PER);
   view=pool;
   $('gfxGrid').innerHTML=pool.map((d,i)=>`<button class="gtile" data-i="${i}" aria-label="Open ${d.c} design"><img src="img/gfx/${d.n}-t.webp" width="${d.w}" height="${d.h}" loading="lazy" decoding="async" alt="${d.c} template"><span class="gcap">${d.c}</span></button>`).join('');
-  $('gfxCount').textContent=`Showing ${pool.length} ${cur==='All'?'designs across '+cats.length+' niches':cur+' designs'}`;
+  $('gfxCount').textContent=`${pool.length} designs${cur==='All'?' across '+cats.length+' niches':''}`;
 }
-$('gfxFilters').addEventListener('click',e=>{const b=e.target.closest('.gchip');if(!b)return;cur=b.dataset.c;chips();render();});
+$('gfxFilters').addEventListener('click',e=>{const b=e.target.closest('.gchip');if(!b)return;cur=b.dataset.c;chips();render();ddOpen(false);dd.focus();});
 const lb=$('gfxLb'); let k=0;
 function show(i){k=(i+view.length)%view.length;const d=view[k];$('gfxLbImg').src=`img/gfx/${d.n}.webp`;$('gfxLbImg').alt=d.c+' template';$('gfxLbCap').textContent=`${d.c} · ${k+1} of ${view.length}`;}
 $('gfxGrid').addEventListener('click',e=>{const t=e.target.closest('.gtile');if(!t)return;show(+t.dataset.i);lb.showModal();});
