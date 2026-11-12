@@ -68,7 +68,7 @@ h1,h2,p{margin:0}
 @media (min-width:48rem){.about{height:150svh}.about .in{position:sticky;top:0;height:100svh;align-content:center;padding-block:0}}
 .about p{grid-column:span 4;font-family:var(--fd);font-size:clamp(1.75rem,3.3vw,3.5rem);line-height:1.05;font-weight:600;letter-spacing:-.03em}
 .about p .w{opacity:.12;transition:opacity .15s linear}
-.about p .acc{color:var(--blue);font-weight:300}
+.about p .acc{color:var(--blue);font-weight:300}.about .tools{grid-column:span 4;margin-top:2.25rem;display:grid;gap:.9rem;opacity:.12;font-family:var(--fs)}.about .tools .g{display:flex;flex-wrap:wrap;align-items:center;gap:.4rem .45rem}.about .tools .k{font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;opacity:.55;min-width:4.25rem;margin-right:.35rem}.about .tools .c{font-size:.875rem;line-height:1;padding:.42rem .7rem;border:1px solid color-mix(in srgb,currentColor 18%,transparent);border-radius:999px;white-space:nowrap}@media (max-width:47.99rem){.about .tools{margin-top:1.5rem;gap:.45rem}.about .tools .g{gap:.15rem .3rem}.about .tools .k{font-size:.66rem;min-width:3.9rem}.about .tools .c{border:0;padding:0;font-size:.8rem;line-height:1.35}.about .tools .c:not(:last-child)::after{content:","}}@media (min-width:48rem){.about .tools{grid-column:6 / span 7;margin-top:2.75rem}}
 @media (min-width:48rem){.about p{grid-column:6 / span 7}}
 
 /* chapters */
@@ -213,7 +213,7 @@ h1,h2,p{margin:0}
 </section>
 
 <section class="about" data-anchor="left" data-pose="think">
-  <div class="in grid-page"><p id="about">I'm a senior product designer in Lagos with almost 9 years of experience, working with teams across North America and Europe. I've led a team of five designers, built design systems, and I turn my designs into code, taking ideas from first sketch to a <span class="acc">live product</span>.</p></div>
+  <div class="in grid-page"><p id="about">I'm a senior product designer in Lagos with almost 9 years of experience, working with teams across North America and Europe. I've led a team of five designers, built design systems, and I turn my designs into code, taking ideas from first sketch to a <span class="acc">live product</span>.</p><div class="tools" aria-label="Tools I use"><div class="g"><span class="k">Design</span><span class="c">Figma</span><span class="c">Photoshop</span><span class="c">Illustrator</span><span class="c">InDesign</span><span class="c">After Effects</span></div><div class="g"><span class="k">Build</span><span class="c">React</span><span class="c">Next.js</span><span class="c">TypeScript</span><span class="c">Webflow</span><span class="c">Vercel</span></div><div class="g"><span class="k">AI</span><span class="c">Claude Code</span><span class="c">Replit</span><span class="c">OpenRouter</span><span class="c">Runway</span></div><div class="g"><span class="k">Measure</span><span class="c">Google Analytics</span><span class="c">A/B testing</span></div></div></div>
 </section>
 
 <div class="tour">
@@ -618,7 +618,7 @@ function skewTick(){ const v = scrollY - skewY; skewY = scrollY; // how far the 
 function update(){
   const vh = innerHeight;
   const D = desk(); const a = $('.about').getBoundingClientRect(); const ap = Math.min(1, Math.max(0, D ? (-a.top + vh*.3) / (a.height - vh*.6) : (vh*.5 - a.top) / a.height));
-  aboutWords.forEach((w, i) => { const t = Math.min(1, Math.max(0, ap*aboutWords.length*1.1 - i)); w.style.opacity = .12 + t*.88; });
+  aboutWords.forEach((w, i) => { const t = Math.min(1, Math.max(0, ap*aboutWords.length*1.1 - i)); w.style.opacity = .12 + t*.88; }); { const tl = $('.about .tools'); if (tl) { const t = Math.min(1, Math.max(0, (ap - .8) / .17)); tl.style.opacity = .12 + t*.88; } }
   let lineGesture = null;
   const clamp = (v, a=0, b=1) => Math.min(b, Math.max(a, v)), seg = (v, a, b) => clamp((v - a)/(b - a));
   $$('.chapter').forEach(c => { const b = c.getBoundingClientRect();
